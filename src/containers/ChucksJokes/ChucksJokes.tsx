@@ -5,26 +5,25 @@ import ChucksJokesCard from "../../components/ChucksJokesCard/ChucksJokesCard";
 const url = 'https://api.chucknorris.io/jokes/random';
 
 const ChucksJokes = () => {
-  const [jokes, setJokes] = useState([])
+  const [jokes, setJokes] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(url);
-
-      if (response.ok) {
-        const joke = await response.json();
-        setJokes(joke);
-      }
-    };
-
     void fetchData();
-  }, [])
+  }, []);
+
+  const fetchData = async () => {
+    const response = await fetch(url);
+    if (response.ok) {
+      const joke = await response.json();
+      setJokes(joke.value);
+    }
+  };
 
   return (
     <>
       <div className='main-chuck'>
-          <ChucksJokesCard value='Hello World' />
-        <button>Generate new joke of Chuck Norris</button>
+        <ChucksJokesCard value={jokes}/>
+        <button onClick={fetchData}>Generate a new joke of Chuck Norris</button>
       </div>
     </>
   );

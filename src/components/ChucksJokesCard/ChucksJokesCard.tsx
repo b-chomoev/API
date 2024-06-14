@@ -4,12 +4,15 @@ interface Props {
   value: string;
 }
 
-const ChucksJokesCard: React.FC<Props> = ({value}) => {
+const ChucksJokesCard: React.FC<Props> = React.memo(({value}) => {
   return (
     <div>
-      <p>{value}</p>
+      <hr/>
+      <h3>{value}</h3>
     </div>
   );
-};
+}, (prevProps, nextProps) => {
+  return nextProps.value === prevProps.value;
+});
 
 export default ChucksJokesCard;
